@@ -15,7 +15,7 @@
     "orange3": {
       "KEY_1": {
         "module": "homeassistant",
-        "function": "toggleEgyptLight"
+        "function": "turn_on_auroras_night_light_for_30_min"
       }
     }
   }
