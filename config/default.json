@@ -1,0 +1,14 @@
+{
+  "hubitat": {
+    "host": "hubitat.smittn.com",
+    "access_token": "xxx"
+  },
+  "mapping": {
+    "orange3": {
+      "KEY_1": {
+        "module": "hubitat",
+        "function": "toggleBedroomLights"
+      }
+    }
+  }
+}
