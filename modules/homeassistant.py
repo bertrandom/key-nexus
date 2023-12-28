@@ -26,5 +26,5 @@ class HomeAssistant:
     async def turnOnAurorasNightLight(self):
         await self.triggerWebhook("turn_on_auroras_night_light_for_30_min")
 
-    async def openGarageDoor(self):
-        await self.triggerWebhook("open_garage_door")
+    async def toggleGarageDoor(self):
+        await self.triggerWebhook("toggle_garage_door")

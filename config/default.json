@@ -9,14 +9,14 @@
     "webhooks": {
       "toggle_egypt_light": "xxx",
       "turn_on_auroras_night_light_for_30_min": "xxx",
-      "open_garage_door": "xxx"
+      "toggle_garage_door": "xxx"
     }
   },
   "mapping": {
     "punch": {
       "KEY_GARAGE": {
         "module": "homeassistant",
-        "function": "openGarageDoor"
+        "function": "toggleGarageDoor"
       }
     },
     "orange3": {
