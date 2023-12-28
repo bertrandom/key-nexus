@@ -3,11 +3,19 @@
     "host": "hubitat.smittn.com",
     "access_token": "xxx"
   },
+  "homeassistant": {
+    "host": "homeassistant.smittn.com",
+    "port": 8123,
+    "webhooks": {
+      "toggle_egypt_light": "xxx",
+      "turn_on_auroras_night_light_for_30_min": "xxx"
+    }
+  },
   "mapping": {
     "orange3": {
       "KEY_1": {
-        "module": "hubitat",
-        "function": "toggleBedroomLights"
+        "module": "homeassistant",
+        "function": "toggleEgyptLight"
       }
     }
   }

@@ -9,6 +9,7 @@ from appcfg import get_config
 from fastapi import Depends, FastAPI
 from pydantic import BaseModel
 
+from modules.homeassistant import HomeAssistant
 from modules.hubitat import Hubitat
 
 
@@ -28,6 +29,7 @@ async def lifespan(app: FastAPI):
     global modules
     session = aiohttp.ClientSession()
     modules = {
+        "homeassistant": HomeAssistant(config, session),
         "hubitat": Hubitat(config, session),
     }
     yield
