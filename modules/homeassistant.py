@@ -17,10 +17,7 @@ class HomeAssistant:
             return
 
         webhook_id = self.config["homeassistant"]["webhooks"][webhook_name]
-
         url = f"http://{self.host}:{self.port}/api/webhook/{webhook_id}"
-
-        logger.info(url)
         await self.session.post(url)
 
     async def toggleEgyptLight(self):
