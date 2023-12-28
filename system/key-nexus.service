@@ -7,7 +7,7 @@ User=web
 WorkingDirectory=/web/key-nexus
 LimitNOFILE=4096
 Environment=ENV=prod
-ExecStart=/home/web/.local/bin/poetry run gunicorn main:app --capture-output --workers 2 -k uvicorn.workers.UvicornWorker --bind unix:key-nexus.sock --error-logfile /web/key-nexus/log/error.log --log-config=logging.conf
+ExecStart=/home/web/.local/bin/poetry run gunicorn main:app --capture-output --workers 2 -k uvicorn.workers.UvicornWorker --bind unix:key-nexus.sock --error-logfile /var/log/gunicorn/key-nexus/error.log --log-config=logging.conf
 Restart=on-failure
 RestartSec=5s
 
