@@ -7,6 +7,20 @@ from sqlite_utils.db import NotFoundError
 logger = logging.getLogger(__name__)
 
 class Sonos:
+
+    urls = {
+        "playback": {
+            "togglePlayPause": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/togglePlayPause',
+            "skipToPreviousTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToPreviousTrack",
+            "skipToNextTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToNextTrack"
+        },
+        "playerVolume": {
+            "getVolume": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/playerVolume',
+            "setMute": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/playerVolume/mute',
+            "setRelativeVolume": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/playerVolume/relative'
+        }
+    }
+
     def __init__(self, config, session, db):
         self.config = config
         self.session = session
@@ -20,6 +34,12 @@ class Sonos:
 
         table = db["sonos_access_tokens"]
         self.table = table
+
+    def getSpeaker(self, name):
+        if name not in self.config["sonos"]["speakers"]:
+            return None
+
+        return self.config["sonos"]["speakers"][name]
 
     async def getAccessToken(self):
         try:
@@ -64,3 +84,95 @@ class Sonos:
                 "token": access_token,
                 "expires_at": expires_at
             }
+        
+    async def playPause(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["playback"]["togglePlayPause"].format(groupId=speaker["groupId"])
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+    async def skipToPreviousTrack(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["playback"]["skipToPreviousTrack"].format(groupId=speaker["groupId"])
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+    async def skipToNextTrack(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["playback"]["skipToNextTrack"].format(groupId=speaker["groupId"])
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+    async def volumeUp(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["playerVolume"]["setRelativeVolume"].format(playerId=speaker["playerId"])
+        payload = { "volumeDelta": 2 }
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers, json=payload) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+
+    async def volumeDown(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["playerVolume"]["setRelativeVolume"].format(playerId=speaker["playerId"])
+        payload = { "volumeDelta": -2 }
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers, json=payload) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+    async def toggleMute(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["playerVolume"]["getVolume"].format(playerId=speaker["playerId"])
+
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.get(url, headers=headers) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+            if "muted" not in response:
+                return
+
+            muted = response["muted"]
+            muted = not muted
+
+            url = self.urls["playerVolume"]["setMute"].format(playerId=speaker["playerId"])
+            payload = { "muted": muted }
+            headers = {
+                "authorization": f"Bearer {access_token}"
+            }
+
+            async with self.session.post(url, headers=headers, json=payload) as resp:
+                response = await resp.json()
+                logger.info(response)

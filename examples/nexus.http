@@ -1,0 +1,27 @@
+POST http://127.0.0.1:8000/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "pivideodrome",
+    "key": "KEY_KP4"
+}
+
+###
+
+POST http://127.0.0.1:8000/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "pivideodrome",
+    "key": "KEY_KP5"
+}
+
+###
+
+POST http://127.0.0.1:8000/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "pivideodrome",
+    "key": "KEY_KP6"
+}

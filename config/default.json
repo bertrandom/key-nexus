@@ -15,7 +15,13 @@
   "sonos": {
     "client_id": "xxx",
     "client_secret": "xxx",
-    "refresh_token": "xxx"
+    "refresh_token": "xxx",
+    "speakers": {
+      "bedroom": {
+        "groupId": "xxx",
+        "playerId": "xxx"
+      }
+    }
   },
   "mapping": {
     "punch": {
@@ -28,6 +34,50 @@
       "KEY_1": {
         "module": "homeassistant",
         "function": "turnOnAurorasNightLight"
+      }
+    },
+    "pivideodrome": {
+      "KEY_KP7": {
+        "module": "sonos",
+        "function": "playPause",
+        "args": {
+          "speaker": "bedroom"
+        }
+      },
+      "KEY_KP8": {
+        "module": "sonos",
+        "function": "skipToPreviousTrack",
+        "args": {
+          "speaker": "bedroom"
+        }
+      },
+      "KEY_KP9": {
+        "module": "sonos",
+        "function": "skipToNextTrack",
+        "args": {
+          "speaker": "bedroom"
+        }
+      },
+      "KEY_KP4": {
+        "module": "sonos",
+        "function": "toggleMute",
+        "args": {
+          "speaker": "bedroom"
+        }
+      },
+      "KEY_KP5": {
+        "module": "sonos",
+        "function": "volumeDown",
+        "args": {
+          "speaker": "bedroom"
+        }
+      },
+      "KEY_KP6": {
+        "module": "sonos",
+        "function": "volumeUp",
+        "args": {
+          "speaker": "bedroom"
+        }
       }
     }
   }

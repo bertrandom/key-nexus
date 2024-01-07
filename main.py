@@ -54,6 +54,7 @@ async def read_root():
 @app.post("/key/press")
 async def press_key(keypress: Keypress):
 
+    logger.info(keypress)
     if keypress.client_id not in config["mapping"]:
         return {"ok": False, "error": "client not found"}
 
@@ -69,8 +70,16 @@ async def press_key(keypress: Keypress):
     module = modules[selection["module"]]
     function = selection["function"]
 
+    args = None
+    if "args" in selection:
+        args = selection["args"]
+
     if hasattr(module, function) and callable(func := getattr(module, function)):
-        await func()
+        logger.info(f"{selection['module']}.{function}({args})")
+        if args is None:
+            await func()
+        else:
+            await func(**args)
     else:
         return {"ok": False, "error": "function not found"}
 
