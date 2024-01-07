@@ -12,6 +12,11 @@
       "toggle_garage_door": "xxx"
     }
   },
+  "sonos": {
+    "client_id": "xxx",
+    "client_secret": "xxx",
+    "refresh_token": "xxx"
+  },
   "mapping": {
     "punch": {
       "KEY_GARAGE": {

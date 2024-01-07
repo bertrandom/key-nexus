@@ -8,9 +8,11 @@ import aiohttp
 from appcfg import get_config
 from fastapi import Depends, FastAPI
 from pydantic import BaseModel
+from sqlite_utils import Database
 
 from modules.homeassistant import HomeAssistant
 from modules.hubitat import Hubitat
+from modules.sonos import Sonos
 
 
 class Keypress(BaseModel):
@@ -23,14 +25,22 @@ config = get_config(__name__)
 
 modules = {}
 
+cwd = os.path.dirname(__file__)
+db_path = (cwd + "/data/nexus.db")
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
     global modules
     session = aiohttp.ClientSession()
+
+    db = Database(db_path)
+    db.enable_wal()
+
     modules = {
         "homeassistant": HomeAssistant(config, session),
         "hubitat": Hubitat(config, session),
+        "sonos": Sonos(config, session, db)
     }
     yield
     await session.close()
@@ -38,7 +48,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"ok": True}
 
 @app.post("/key/press")

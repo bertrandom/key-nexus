@@ -13,6 +13,7 @@ uvicorn = {extras = ["standard"], version = "^0.25.0"}
 gunicorn = "^21.2.0"
 appcfg = "^1.1.1"
 aiohttp = "^3.9.1"
+sqlite-utils = "^3.36"
 
 
 [build-system]
