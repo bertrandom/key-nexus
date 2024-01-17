@@ -9,6 +9,9 @@ logger = logging.getLogger(__name__)
 class Sonos:
 
     urls = {
+        "audioClip": {
+            "loadAudioClip": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/audioClip',
+        },
         "playback": {
             "togglePlayPause": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/togglePlayPause',
             "skipToPreviousTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToPreviousTrack",
@@ -176,3 +179,30 @@ class Sonos:
             async with self.session.post(url, headers=headers, json=payload) as resp:
                 response = await resp.json()
                 logger.info(response)
+    
+    async def playAudioClip(self, **kwargs):
+        speaker = self.getSpeaker(kwargs["speaker"])
+        access_token = await self.getAccessToken()
+        url = self.urls["audioClip"]["loadAudioClip"].format(playerId=speaker["playerId"])
+
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        phrase = kwargs["phrase"]
+
+        payload = {
+            "clipLEDBehavior": "NONE",
+            "name": phrase,
+            "appId": "org.bert.sonos",
+            "priority": "HIGH",
+            "streamUrl": f'http://nuke.smittn.com/say/{phrase}.mp3',
+            "volume": 40
+        }
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers, json=payload) as resp:
+            response = await resp.json()
+            logger.info(response)

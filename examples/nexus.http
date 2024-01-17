@@ -25,3 +25,33 @@ content-type: application/json
     "client_id": "pivideodrome",
     "key": "KEY_KP6"
 }
+
+###
+
+POST http://nuke.smittn.com/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "homeassistant",
+    "key": "chairs_heating_up"
+}
+
+###
+
+POST http://nuke.smittn.com/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "homeassistant",
+    "key": "chairs_heated_up"
+}
+
+###
+
+POST http://nuke.smittn.com/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "homeassistant",
+    "key": "chairs_shutting_down"
+}

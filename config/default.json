@@ -23,7 +23,41 @@
       }
     }
   },
+  "openai": {
+    "api_key": "xxx"
+  },
+  "phrases": {
+    "chairs_heating_up": "Chairs are heating up, they will be ready in 20 minutes.",
+    "chairs_heated_up": "Chairs should be heated up now.",
+    "chairs_shutting_down": "Turning off chairs."
+  },
   "mapping": {
+    "homeassistant": {
+      "chairs_heating_up": {
+        "module": "sonos",
+        "function": "playAudioClip",
+        "args": {
+          "speaker": "bedroom",
+          "phrase": "chairs_heating_up"
+        }
+      },
+      "chairs_heated_up": {
+        "module": "sonos",
+        "function": "playAudioClip",
+        "args": {
+          "speaker": "bedroom",
+          "phrase": "chairs_heated_up"
+        }
+      },
+      "chairs_shutting_down": {
+        "module": "sonos",
+        "function": "playAudioClip",
+        "args": {
+          "speaker": "bedroom",
+          "phrase": "chairs_shutting_down"
+        }
+      }
+    },
     "punch": {
       "KEY_GARAGE": {
         "module": "homeassistant",
