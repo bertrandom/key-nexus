@@ -28,3 +28,9 @@ class HomeAssistant:
 
     async def toggleGarageDoor(self):
         await self.triggerWebhook("toggle_garage_door")
+
+    async def openGarageDoor(self):
+        await self.triggerWebhook("open_garage_door")
+
+    async def closeGarageDoor(self):
+        await self.triggerWebhook("close_garage_door")

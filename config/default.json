@@ -9,7 +9,9 @@
     "webhooks": {
       "toggle_egypt_light": "xxx",
       "turn_on_auroras_night_light_for_30_min": "xxx",
-      "toggle_garage_door": "xxx"
+      "toggle_garage_door": "xxx",
+      "open_garage_door": "xxx",
+      "close_garage_door": "xxx"
     }
   },
   "sonos": {
@@ -62,6 +64,14 @@
       "KEY_GARAGE": {
         "module": "homeassistant",
         "function": "toggleGarageDoor"
+      },
+      "KEY_GARAGE_OPEN": {
+        "module": "homeassistant",
+        "function": "openGarageDoor"
+      },
+      "KEY_GARAGE_CLOSE": {
+        "module": "homeassistant",
+        "function": "closeGarageDoor"
       }
     },
     "orange3": {
