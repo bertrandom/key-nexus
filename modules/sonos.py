@@ -196,7 +196,7 @@ class Sonos:
             "name": phrase,
             "appId": "org.bert.sonos",
             "priority": "HIGH",
-            "streamUrl": f'http://nuke.smittn.com/say/{phrase}.mp3',
+            "streamUrl": f'http://nuke.smittn.com/sounds/{phrase}.mp3',
             "volume": 40
         }
         headers = {
