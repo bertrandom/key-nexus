@@ -93,3 +93,8 @@ async def press_key(keypress: Keypress):
         return {"ok": False, "error": "function not found"}
 
     return {"ok": True}
+
+@app.get("/sonos/groups/update")
+async def update_sonos_groups():
+    await modules["sonos"].updateGroups()
+    return {"ok": True}

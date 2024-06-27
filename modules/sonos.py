@@ -12,6 +12,9 @@ class Sonos:
         "audioClip": {
             "loadAudioClip": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/audioClip',
         },
+        "groups": {
+            "getGroups": 'https://api.ws.sonos.com/control/api/v1/households/{householdId}/groups',
+        },
         "playback": {
             "togglePlayPause": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/togglePlayPause',
             "skipToPreviousTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToPreviousTrack",
@@ -35,18 +38,27 @@ class Sonos:
             "expires_at": datetime.datetime 
         }, pk="id", if_not_exists=True)
 
-        table = db["sonos_access_tokens"]
-        self.table = table
+        db["sonos_groups"].create({
+            "id": int,
+            "group_id": str,
+            "group_name": str,
+            "updated_at": datetime.datetime
+        }, pk="id", if_not_exists=True)
 
     def getSpeaker(self, name):
         if name not in self.config["sonos"]["speakers"]:
             return None
 
-        return self.config["sonos"]["speakers"][name]
+        speaker = self.config["sonos"]["speakers"][name]
+        rows = self.db["sonos_groups"].rows_where("group_name = :group_name", {"group_name": speaker["name"]}, limit=1)
+        for row in rows:
+            speaker["groupId"] = row["group_id"]
+
+        return speaker
 
     async def getAccessToken(self):
         try:
-            row = self.table.get(1)
+            row = self.db["sonos_access_tokens"].get(1)
         except NotFoundError:
             row = None
 
@@ -56,8 +68,40 @@ class Sonos:
         sonos_access_token = await self.refreshAccessToken()
         if sonos_access_token is None:
             return
-        self.table.upsert(sonos_access_token, pk="id")
+        self.db["sonos_access_tokens"].upsert(sonos_access_token, pk="id")
         return sonos_access_token["token"]
+
+    async def updateGroups(self):
+        access_token = await self.getAccessToken()
+        url = self.urls["groups"]["getGroups"].format(householdId=self.config["sonos"]["household_id"])
+
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.get(url, headers=headers) as resp:
+            response = await resp.json()
+
+            now = datetime.datetime.now(datetime.UTC)
+
+            for group in response['groups']:
+
+                rows = self.db["sonos_groups"].rows_where("group_name = :group_name", {"group_name": group["name"]}, limit=1)
+                exists = False
+
+                for row in rows:
+                    exists = True
+                    if row["group_id"] != group["id"]:
+                        self.db["sonos_groups"].update(row["id"], {"group_id": group["id"], "updated_at": now})
+
+                if not exists:
+                    self.db["sonos_groups"].insert({
+                        "group_id": group["id"],
+                        "group_name": group["name"],
+                        "updated_at": now
+                    })
+
+            return response
 
     def getAuthorizationHeader(self):
         client_string = f"{self.config['sonos']['client_id']}:{self.config['sonos']['client_secret']}"
