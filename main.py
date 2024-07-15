@@ -13,6 +13,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 from sqlite_utils import Database
 
+from modules.eo import ElectricObjects
 from modules.homeassistant import HomeAssistant
 from modules.hubitat import Hubitat
 from modules.sonos import Sonos
@@ -48,6 +49,7 @@ async def lifespan(app: FastAPI):
         "homeassistant": HomeAssistant(config, session),
         "hubitat": Hubitat(config, session),
         "sonos": Sonos(config, session, db),
+        "eo": ElectricObjects(config, session),
         "openai": openai_client
     }
     yield

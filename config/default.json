@@ -123,6 +123,22 @@
           "speaker": "bedroom"
         }
       }
+    },
+    "piexistenz": {
+      "KEY_1": {
+        "module": "eo",
+        "function": "resume",
+        "args": {
+          "frame": "eoleft"
+        }
+      },
+      "KEY_2": {
+        "module": "eo",
+        "function": "resume",
+        "args": {
+          "frame": "eoright"
+        }
+      }
     }
   }
 }
