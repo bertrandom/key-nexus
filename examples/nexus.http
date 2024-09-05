@@ -55,3 +55,23 @@ content-type: application/json
     "client_id": "homeassistant",
     "key": "chairs_shutting_down"
 }
+
+###
+
+POST http://nuke.smittn.com/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "orange2",
+    "key": "KEY_1"
+}
+
+###
+
+POST http://nuke.smittn.com/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "orange2",
+    "key": "KEY_2"
+}

@@ -18,12 +18,20 @@ class Sonos:
         "playback": {
             "togglePlayPause": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/togglePlayPause',
             "skipToPreviousTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToPreviousTrack",
-            "skipToNextTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToNextTrack"
+            "skipToNextTrack": "https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/skipToNextTrack",
+            "lineIn": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/lineIn',
+            "play": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/playback/play',
         },
         "playerVolume": {
             "getVolume": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/playerVolume',
             "setMute": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/playerVolume/mute',
             "setRelativeVolume": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/playerVolume/relative'
+        },
+        "groupVolume": {
+            "groupVolume": 'https://api.ws.sonos.com/control/api/v1/groups/{groupId}/groupVolume',
+        },
+        "players": {
+            "homeTheater": 'https://api.ws.sonos.com/control/api/v1/players/{playerId}/homeTheater',
         }
     }
 
@@ -248,5 +256,67 @@ class Sonos:
         }
 
         async with self.session.post(url, headers=headers, json=payload) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+    async def switchToRecordPlayer(self, **kwargs):
+        access_token = await self.getAccessToken()
+        await self.playAudioClip(speaker="living_room", phrase="sonos_input_record_player")
+
+        speakerRecordPlayer = self.getSpeaker("record_player")
+
+        speaker = self.getSpeaker("living_room")
+        url = self.urls["playback"]["lineIn"].format(groupId=speaker["groupId"])
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        logger.info(url)
+        logger.info({
+            "deviceId": speakerRecordPlayer["playerId"],
+        })
+
+        async with self.session.post(url, headers=headers, json={
+            "deviceId": speakerRecordPlayer["playerId"],
+        }) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+        url = self.urls["playback"]["play"].format(groupId=speaker["groupId"])
+
+        async with self.session.post(url, headers=headers, json={
+            "deviceId": speakerRecordPlayer["playerId"],
+        }) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+
+        url = self.urls["groupVolume"]["groupVolume"].format(groupId=speaker["groupId"])
+
+        async with self.session.post(url, headers=headers, json={
+            "volume": 55,
+        }) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+    async def switchToTV(self, **kwargs):
+        access_token = await self.getAccessToken()
+        await self.playAudioClip(speaker="living_room", phrase="sonos_input_tv")
+
+        speaker = self.getSpeaker("living_room")
+        url = self.urls["players"]["homeTheater"].format(playerId=speaker["playerId"])
+        headers = {
+            "authorization": f"Bearer {access_token}"
+        }
+
+        async with self.session.post(url, headers=headers) as resp:
+            response = await resp.json()
+            logger.info(response)
+
+        url = self.urls["groupVolume"]["groupVolume"].format(groupId=speaker["groupId"])
+
+        async with self.session.post(url, headers=headers, json={
+            "volume": 50,
+        }) as resp:
             response = await resp.json()
             logger.info(response)

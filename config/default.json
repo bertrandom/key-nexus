@@ -74,6 +74,23 @@
         "function": "closeGarageDoor"
       }
     },
+    "orange2": {
+      "KEY_1": {
+        "module": "sonos",
+        "function": "switchToRecordPlayer",
+        "args": {}
+      },
+      "KEY_2": {
+        "module": "sonos",
+        "function": "switchToTV",
+        "args": {}
+      },
+      "KEY_3": {
+        "module": "sonos",
+        "function": "switchToRecordPlayer",
+        "args": {}
+      }
+    },
     "orange3": {
       "KEY_1": {
         "module": "homeassistant",
