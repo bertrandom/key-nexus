@@ -47,9 +47,19 @@ async def lifespan(app: FastAPI):
         api_key=config["openai"]["api_key"],
     )
 
+    def on_connect(client, userdata, flags, reason_code, properties):
+        logger.info(f"Connected to MQTT with result code {reason_code}")
+
+    def on_disconnect(client, userdata, rc):
+        if rc != 0:
+            logger.info("Unexpected MQTT disconnection. Will auto-reconnect")
+
     mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
     mqttc.username_pw_set(config["mqtt"]["username"], config["mqtt"]["password"])
+    mqttc.on_connect = on_connect
+    mqttc.on_disconnect = on_disconnect
     mqttc.connect(config["mqtt"]["host"], config["mqtt"]["port"], 60)    
+    mqttc.loop_start()
 
     modules = {
         "homeassistant": HomeAssistant(config, session),
