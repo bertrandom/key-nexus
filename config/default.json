@@ -28,6 +28,12 @@
   "openai": {
     "api_key": "xxx"
   },
+  "mqtt": {
+    "host": "localhost",
+    "port": 1883,
+    "username": "xxx",
+    "password": "xxx"
+  },
   "phrases": {
     "chairs_heating_up": "Chairs are heating up, they will be ready in 20 minutes.",
     "chairs_heated_up": "Chairs should be heated up now.",
@@ -155,6 +161,76 @@
         "args": {
           "frame": "eoright"
         }
+      }
+    },
+    "pideadzone": {
+      "KEY_KP7": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "BERT"
+        }
+      },
+      "KEY_KP8": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "IRIS"
+        }
+      },
+      "KEY_KP9": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "RORO"
+        }
+      },
+      "KEY_KP4": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "BUTT"
+        }
+      },
+      "KEY_KP5": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "POOP"
+        }
+      },
+      "KEY_KP6": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "FART"
+        }
+      },
+      "KEY_KP1": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "DUDE"
+        }
+      },
+      "KEY_KP2": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "COOL"
+        }
+      },
+      "KEY_KP3": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "MILK"
+        }
+      },
+      "KEY_KP0": {
+        "module": "flipdisc",
+        "function": "displayRandomWord",
+        "args": {}
       }
     }
   }

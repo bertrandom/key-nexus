@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from typing import Annotated, Union
 
 import aiohttp
+import paho.mqtt.client as mqtt
 from appcfg import get_config
 from fastapi import Depends, FastAPI
 from fastapi.responses import StreamingResponse
@@ -14,6 +15,7 @@ from pydantic import BaseModel
 from sqlite_utils import Database
 
 from modules.eo import ElectricObjects
+from modules.flipdisc import FlipDisc
 from modules.homeassistant import HomeAssistant
 from modules.hubitat import Hubitat
 from modules.sonos import Sonos
@@ -45,12 +47,17 @@ async def lifespan(app: FastAPI):
         api_key=config["openai"]["api_key"],
     )
 
+    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    mqttc.username_pw_set(config["mqtt"]["username"], config["mqtt"]["password"])
+    mqttc.connect(config["mqtt"]["host"], config["mqtt"]["port"], 60)    
+
     modules = {
         "homeassistant": HomeAssistant(config, session),
         "hubitat": Hubitat(config, session),
         "sonos": Sonos(config, session, db),
         "eo": ElectricObjects(config, session),
-        "openai": openai_client
+        "openai": openai_client,
+        "flipdisc": FlipDisc(config, mqttc)
     }
     yield
     await session.close()
