@@ -10,8 +10,8 @@ class FlipDisc:
 
     async def displayWord(self, **kwargs):
         word = kwargs["word"]
-        logger.info(word)
 
+        logger.info(f"Publishing word: {word} to MQTT")
         self.mqttc.publish("iot/flipdisc", word)
 
     async def displayRandomWord(self):
@@ -25,4 +25,5 @@ class FlipDisc:
         # Pick a random word from the list (removing the newline character if present)
         word = random.choice(words).rstrip('\n')
 
+        logger.info(f"Publishing word: {word} to MQTT")
         self.mqttc.publish("iot/flipdisc", word)
