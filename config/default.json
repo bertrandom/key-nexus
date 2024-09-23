@@ -232,6 +232,27 @@
         "function": "displayRandomWord",
         "args": {}
       }
+    },
+    "flicdiningroom": {
+      "PUSH": {
+        "module": "flipdisc",
+        "function": "displayRandomWord",
+        "args": {}
+      },
+      "DOUBLE_PUSH": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "BERT"
+        }
+      },
+      "HOLD": {
+        "module": "flipdisc",
+        "function": "displayWord",
+        "args": {
+          "word": "RORO"
+        }
+      }
     }
   }
 }
