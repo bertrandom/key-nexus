@@ -50,8 +50,8 @@ async def lifespan(app: FastAPI):
     def on_connect(client, userdata, flags, reason_code, properties):
         logger.info(f"Connected to MQTT with result code {reason_code}")
 
-    def on_disconnect(client, userdata, rc):
-        if rc != 0:
+    def on_disconnect(client, userdata, disconnect_flags, reason_code, properties):
+        if reason_code != 0:
             logger.info("Unexpected MQTT disconnection. Will auto-reconnect")
 
     mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
