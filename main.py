@@ -104,10 +104,13 @@ async def press_key(keypress: Keypress):
 
     if hasattr(module, function) and callable(func := getattr(module, function)):
         logger.info(f"{selection['module']}.{function}({args})")
-        if args is None:
-            await func()
-        else:
-            await func(**args)
+        try:
+            if args is None:
+                await func()
+            else:
+                await func(**args)
+        except Exception as e:
+            return {"ok": False, "error": str(e)}
     else:
         return {"ok": False, "error": "function not found"}
 
@@ -115,5 +118,9 @@ async def press_key(keypress: Keypress):
 
 @app.get("/sonos/groups/update")
 async def update_sonos_groups():
-    await modules["sonos"].updateGroups()
+    try:
+        await modules["sonos"].updateGroups()
+    except Exception as e:
+        logger.error("Error updating Sonos groups: %s", str(e))
+        return {"ok": False, "error": str(e)}
     return {"ok": True}
