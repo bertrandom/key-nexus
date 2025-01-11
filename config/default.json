@@ -12,7 +12,8 @@
       "toggle_garage_door": "xxx",
       "open_garage_door": "xxx",
       "close_garage_door": "xxx"
-    }
+    },
+    "api_key": "xxx"
   },
   "sonos": {
     "client_id": "xxx",
@@ -252,6 +253,46 @@
         "args": {
           "word": "RORO"
         }
+      }
+    },
+    "pioffice": {
+      "KEY_KP7": {
+        "module": "hubitat",
+        "function": "turnOnOfficeLights",
+        "args": {}
+      },
+      "KEY_KP8": {
+        "module": "hubitat",
+        "function": "dimOfficeLights",
+        "args": {}
+      },
+      "KEY_KP9": {
+        "module": "hubitat",
+        "function": "turnOffOfficeLights",
+        "args": {}
+      },
+      "KEY_KP4": {
+        "module": "hubitat",
+        "function": "openBlinds",
+        "args": {}
+      },
+      "KEY_KP5": {
+        "module": "generic_mqtt",
+        "function": "publish",
+        "args": {
+          "topic": "iot/usbswitch",
+          "payload": "{\"type\":\"toggle\"}"
+        }
+      },
+      "KEY_KP6": {
+        "module": "hubitat",
+        "function": "closeBlinds",
+        "args": {}
+      },
+      "KEY_KP0": {
+        "module": "homeassistant",
+        "function": "toggleNixie",
+        "args": {}
       }
     }
   }

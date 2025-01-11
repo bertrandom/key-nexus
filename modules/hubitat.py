@@ -30,3 +30,18 @@ class Hubitat:
                     await self.session.get(f"http://{self.host}/apps/api/88/devices/36/setLevel/100?access_token={self.access_token}")
                 else:
                     await self.session.get(f"http://{self.host}/apps/api/88/devices/36/off?access_token={self.access_token}")
+
+    async def turnOnOfficeLights(self):
+        await self.session.get(f"http://{self.host}/apps/api/88/devices/7/setLevel/100?access_token={self.access_token}")
+
+    async def dimOfficeLights(self):
+        await self.session.get(f"http://{self.host}/apps/api/88/devices/7/setLevel/25?access_token={self.access_token}")
+
+    async def turnOffOfficeLights(self):
+        await self.session.get(f"http://{self.host}/apps/api/88/devices/7/off?access_token={self.access_token}")
+
+    async def openBlinds(self):
+        await self.session.get(f"http://{self.host}/apps/api/88/devices/8/open?access_token={self.access_token}")
+
+    async def closeBlinds(self):
+        await self.session.get(f"http://{self.host}/apps/api/88/devices/8/close?access_token={self.access_token}")

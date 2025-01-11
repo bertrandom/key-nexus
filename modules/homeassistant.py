@@ -12,13 +12,16 @@ class HomeAssistant:
         self.host = self.config["homeassistant"]["host"]
         self.port = self.config["homeassistant"]["port"]
 
+        self.api_key = self.config["homeassistant"]["api_key"]
+
     async def triggerWebhook(self, webhook_name):
         if self.config["homeassistant"]["webhooks"][webhook_name] is None:
             return
 
         webhook_id = self.config["homeassistant"]["webhooks"][webhook_name]
         url = f"http://{self.host}:{self.port}/api/webhook/{webhook_id}"
-        await self.session.post(url)
+        result = await self.session.post(url)
+        logger.info(result)
 
     async def toggleEgyptLight(self):
         await self.triggerWebhook("toggle_egypt_light")
@@ -34,3 +37,11 @@ class HomeAssistant:
 
     async def closeGarageDoor(self):
         await self.triggerWebhook("close_garage_door")
+
+    async def toggleNixie(self):
+        url = f"http://{self.host}:{self.port}/api/services/switch/toggle"
+        await self.session.post(f"http://{self.host}:{self.port}/api/services/switch/toggle", json={
+            "entity_id": "switch.nixie_bulb_skinny_2"
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
