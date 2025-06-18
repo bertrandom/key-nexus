@@ -45,3 +45,55 @@ class HomeAssistant:
         }, headers={
             "Authorization": f"Bearer {self.api_key}"
         })
+    
+    async def turnOnLight(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+        brightness_pct = int(kwargs.get("brightness_pct", 100))
+
+        url = f"http://{self.host}:{self.port}/api/services/light/turn_on"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+            "brightness_pct": brightness_pct
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+    async def turnOffLight(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/light/turn_off"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+    async def toggleLight(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/light/toggle"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+    async def pressButton(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/button/press"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+    async def triggerAutomation(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/automation/trigger"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
