@@ -349,24 +349,34 @@
     },
     "pioffice": {
       "KEY_KP7": {
-        "module": "hubitat",
-        "function": "turnOnOfficeLights",
-        "args": {}
+        "module": "homeassistant",
+        "function": "turnOnLight",
+        "args": {
+          "entity_id": "light.office_main_lights",
+          "brightness_pct": 100
+        }
       },
       "KEY_KP8": {
-        "module": "hubitat",
-        "function": "dimOfficeLights",
-        "args": {}
+        "module": "homeassistant",
+        "function": "turnOnLight",
+        "args": {
+          "entity_id": "light.office_main_lights",
+          "brightness_pct": 25
+        }
       },
       "KEY_KP9": {
-        "module": "hubitat",
-        "function": "turnOffOfficeLights",
-        "args": {}
+        "module": "homeassistant",
+        "function": "turnOffLight",
+        "args": {
+          "entity_id": "light.office_main_lights"
+        }
       },
       "KEY_KP4": {
-        "module": "hubitat",
-        "function": "openBlinds",
-        "args": {}
+        "module": "homeassistant",
+        "function": "openCover",
+        "args": {
+          "entity_id": "cover.office_deck"
+        }
       },
       "KEY_KP5": {
         "module": "generic_mqtt",
@@ -377,9 +387,11 @@
         }
       },
       "KEY_KP6": {
-        "module": "hubitat",
-        "function": "closeBlinds",
-        "args": {}
+        "module": "homeassistant",
+        "function": "closeCover",
+        "args": {
+          "entity_id": "cover.office_deck"
+        }
       },
       "KEY_KP0": {
         "module": "homeassistant",

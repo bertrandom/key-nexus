@@ -97,3 +97,23 @@ class HomeAssistant:
         }, headers={
             "Authorization": f"Bearer {self.api_key}"
         })
+
+    async def openCover(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/cover/open_cover"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+    async def closeCover(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/cover/close_cover"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
