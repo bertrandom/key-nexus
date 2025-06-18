@@ -393,6 +393,30 @@
           "entity_id": "cover.office_deck"
         }
       },
+      "KEY_KP1": {
+        "module": "generic_mqtt",
+        "function": "publish",
+        "args": {
+          "topic": "iot/nixie",
+          "payload": "{\"type\":\"decrement\"}"
+        }
+      },
+      "KEY_KP2": {
+        "module": "generic_mqtt",
+        "function": "publish",
+        "args": {
+          "topic": "iot/nixie",
+          "payload": "{\"type\":\"set\", \"number\": 5}"
+        }
+      },
+      "KEY_KP3": {
+        "module": "generic_mqtt",
+        "function": "publish",
+        "args": {
+          "topic": "iot/nixie",
+          "payload": "{\"type\":\"increment\"}"
+        }
+      },
       "KEY_KP0": {
         "module": "homeassistant",
         "function": "toggleNixie",
