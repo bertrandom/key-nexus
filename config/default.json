@@ -189,9 +189,10 @@
       },
       "KEY_6": {
         "module": "homeassistant",
-        "function": "turnOffLight",
+        "function": "turnOnLight",
         "args": {
-          "entity_id": "light.master_bedroom_sconce"
+          "entity_id": "light.master_bedroom_sconce",
+          "brightness_pct": 1
         }
       }
     },
