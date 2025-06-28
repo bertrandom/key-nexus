@@ -82,6 +82,6 @@ POST http://nuke.smittn.com/key/press HTTP/1.1
 content-type: application/json
 
 {
-    "client_id": "pideadzone",
-    "key": "KEY_7"
+    "client_id": "orange4",
+    "key": "KEY_3"
 }

@@ -169,30 +169,9 @@
       },
       "KEY_3": {
         "module": "homeassistant",
-        "function": "toggleEgyptLight"
-      },
-      "KEY_4": {
-        "module": "homeassistant",
-        "function": "turnOnLight",
+        "function": "cycleSconceBrightness",
         "args": {
-          "entity_id": "light.master_bedroom_sconce",
-          "brightness_pct": 50
-        }
-      },
-      "KEY_5": {
-        "module": "homeassistant",
-        "function": "turnOnLight",
-        "args": {
-          "entity_id": "light.master_bedroom_sconce",
-          "brightness_pct": 20
-        }
-      },
-      "KEY_6": {
-        "module": "homeassistant",
-        "function": "turnOnLight",
-        "args": {
-          "entity_id": "light.master_bedroom_sconce",
-          "brightness_pct": 1
+          "entity_id": "light.master_bedroom_sconce"
         }
       }
     },
