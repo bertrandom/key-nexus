@@ -16,6 +16,7 @@ from sqlite_utils import Database
 
 from modules.eo import ElectricObjects
 from modules.flipdisc import FlipDisc
+from modules.generic_http import GenericHttp
 from modules.generic_mqtt import GenericMqtt
 from modules.homeassistant import HomeAssistant
 from modules.hubitat import Hubitat
@@ -69,7 +70,8 @@ async def lifespan(app: FastAPI):
         "eo": ElectricObjects(config, session),
         "openai": openai_client,
         "flipdisc": FlipDisc(config, mqttc),
-        "generic_mqtt": GenericMqtt(config, mqttc)
+        "generic_mqtt": GenericMqtt(config, mqttc),
+        "generic_http": GenericHttp(config, session),
     }
     yield
     await session.close()

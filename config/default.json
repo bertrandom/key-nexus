@@ -308,22 +308,24 @@
     },
     "flicdiningroom": {
       "PUSH": {
-        "module": "flipdisc",
-        "function": "displayRandomWord",
-        "args": {}
+        "module": "generic_http",
+        "function": "post",
+        "args": {
+          "url": "http://joke.smittn.com/joke/send"
+        }
       },
       "DOUBLE_PUSH": {
-        "module": "flipdisc",
-        "function": "displayWord",
+        "module": "generic_http",
+        "function": "post",
         "args": {
-          "word": "BERT"
+          "url": "http://joke.smittn.com/joke/send"
         }
       },
       "HOLD": {
-        "module": "flipdisc",
-        "function": "displayWord",
+        "module": "generic_http",
+        "function": "post",
         "args": {
-          "word": "RORO"
+          "url": "http://joke.smittn.com/joke/send"
         }
       }
     },
