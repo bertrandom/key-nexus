@@ -41,7 +41,7 @@ class HomeAssistant:
     async def toggleNixie(self):
         url = f"http://{self.host}:{self.port}/api/services/switch/toggle"
         await self.session.post(f"http://{self.host}:{self.port}/api/services/switch/toggle", json={
-            "entity_id": "switch.nixie_bulb_skinny_2"
+            "entity_id": "switch.nixie_bulb_switch"
         }, headers={
             "Authorization": f"Bearer {self.api_key}"
         })
