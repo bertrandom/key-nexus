@@ -118,6 +118,37 @@ class HomeAssistant:
             "Authorization": f"Bearer {self.api_key}"
         })
 
+    async def toggleSconceBrightness(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/states/{entity_id}"
+        response = await self.session.get(url, json={
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+        entity_state = await response.json()
+
+        brightness_pct = 1
+
+        if entity_state["state"] == "on" and "attributes" in entity_state and "brightness" in entity_state["attributes"]:
+            current_brightness = entity_state["attributes"]["brightness"]
+            if current_brightness is not None:
+                if current_brightness <= 3:
+                    brightness_pct = 50
+                else:
+                    brightness_pct = 1
+        else:
+            brightness_pct = 50
+
+        url = f"http://{self.host}:{self.port}/api/services/light/turn_on"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+            "brightness_pct": brightness_pct
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
     async def cycleSconceBrightness(self, **kwargs):
         entity_id = kwargs["entity_id"]
 
@@ -150,3 +181,26 @@ class HomeAssistant:
         }, headers={
             "Authorization": f"Bearer {self.api_key}"
         })
+
+    async def cycleLightBrightness(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/states/{entity_id}"
+        response = await self.session.get(url, json={
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+        entity_state = await response.json()
+
+        if entity_state["state"] == "on" and "attributes" in entity_state and "brightness" in entity_state["attributes"]:
+            current_brightness = entity_state["attributes"]["brightness"]
+            if current_brightness is not None:
+                if current_brightness <= 63:
+                    await self.turnOnLight(entity_id=entity_id, brightness_pct=100)
+                    return
+                else:
+                    await self.turnOffLight(entity_id=entity_id)
+                    return
+
+        await self.turnOnLight(entity_id=entity_id, brightness_pct=25)

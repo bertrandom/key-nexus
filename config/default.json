@@ -155,31 +155,9 @@
     "04A7AC": {
       "KEY_1": {
         "module": "homeassistant",
-        "function": "toggleLight",
-        "args": {
-          "entity_id": "light.master_bedroom_main_lights"
-        }
-      },
-      "KEY_2": {
-        "module": "homeassistant",
-        "function": "triggerAutomation",
-        "args": {
-          "entity_id": "automation.toggle_master_bedroom_blinds"
-        }
-      },
-      "KEY_3": {
-        "module": "homeassistant",
         "function": "toggleEgyptLight"
       },
-      "KEY_4": {
-        "module": "homeassistant",
-        "function": "turnOnLight",
-        "args": {
-          "entity_id": "light.master_bedroom_sconce",
-          "brightness_pct": 50
-        }
-      },
-      "KEY_5": {
+      "KEY_2": {
         "module": "homeassistant",
         "function": "turnOnLight",
         "args": {
@@ -187,12 +165,32 @@
           "brightness_pct": 20
         }
       },
+      "KEY_3": {
+        "module": "homeassistant",
+        "function": "toggleSconceBrightness",
+        "args": {
+          "entity_id": "light.master_bedroom_sconce"
+        }
+      },
+      "KEY_4": {
+        "module": "homeassistant",
+        "function": "cycleLightBrightness",
+        "args": {
+          "entity_id": "light.master_bedroom_main_lights"
+        }
+      },
+      "KEY_5": {
+        "module": "homeassistant",
+        "function": "pressButton",
+        "args": {
+          "entity_id": "button.master_bedroom_pico_on"
+        }
+      },
       "KEY_6": {
         "module": "homeassistant",
-        "function": "turnOnLight",
+        "function": "pressButton",
         "args": {
-          "entity_id": "light.master_bedroom_sconce",
-          "brightness_pct": 1
+          "entity_id": "button.master_bedroom_pico_off"
         }
       }
     },

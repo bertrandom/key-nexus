@@ -85,3 +85,13 @@ content-type: application/json
     "client_id": "orange4",
     "key": "KEY_3"
 }
+
+###
+
+POST http://nuke.smittn.com/key/press HTTP/1.1
+content-type: application/json
+
+{
+    "client_id": "04A7AC",
+    "key": "KEY_4"
+}
