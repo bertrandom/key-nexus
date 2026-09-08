@@ -196,11 +196,11 @@ class HomeAssistant:
         if entity_state["state"] == "on" and "attributes" in entity_state and "brightness" in entity_state["attributes"]:
             current_brightness = entity_state["attributes"]["brightness"]
             if current_brightness is not None:
-                if current_brightness <= 63:
-                    await self.turnOnLight(entity_id=entity_id, brightness_pct=100)
+                if current_brightness >= 64 and current_brightness <= 255:
+                    await self.turnOnLight(entity_id=entity_id, brightness_pct=25)
                     return
                 else:
                     await self.turnOffLight(entity_id=entity_id)
                     return
 
-        await self.turnOnLight(entity_id=entity_id, brightness_pct=25)
+        await self.turnOnLight(entity_id=entity_id, brightness_pct=100)
