@@ -323,24 +323,24 @@
         }
       },
       "KEY_KP1": {
-        "module": "flipdisc",
-        "function": "displayWord",
+        "module": "generic_http",
+        "function": "post",
         "args": {
-          "word": "DUDE"
+          "url": "http://vbpatterns.smittn.com/previous"
         }
       },
       "KEY_KP2": {
-        "module": "flipdisc",
-        "function": "displayWord",
+        "module": "generic_http",
+        "function": "post",
         "args": {
-          "word": "COOL"
+          "url": "http://vbpatterns.smittn.com/current/send"
         }
       },
       "KEY_KP3": {
-        "module": "flipdisc",
-        "function": "displayWord",
+        "module": "generic_http",
+        "function": "post",
         "args": {
-          "word": "MILK"
+          "url": "http://vbpatterns.smittn.com/next"
         }
       },
       "KEY_KP0": {
