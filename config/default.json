@@ -447,6 +447,24 @@
         "function": "toggleNixie",
         "args": {}
       }
+    },
+
+    "bertslaptop_planck": {
+      "RED_1": {
+        "module": "homeassistant",
+        "function": "turnOnLight",
+        "args": {
+          "entity_id": "light.office_monitor_lightstrip",
+          "brightness_pct": 100
+        }
+      },
+      "RED_2": {
+        "module": "homeassistant",
+        "function": "turnOffLight",
+        "args": {
+          "entity_id": "light.office_monitor_lightstrip"
+        }
+      }
     }
   }
 }
