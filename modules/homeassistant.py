@@ -204,3 +204,23 @@ class HomeAssistant:
                     return
 
         await self.turnOnLight(entity_id=entity_id, brightness_pct=100)
+
+    async def turnOnMediaPlayer(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/media_player/turn_on"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
+
+    async def turnOffMediaPlayer(self, **kwargs):
+        entity_id = kwargs["entity_id"]
+
+        url = f"http://{self.host}:{self.port}/api/services/media_player/turn_off"
+        await self.session.post(url, json={
+            "entity_id": entity_id,
+        }, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })

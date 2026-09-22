@@ -464,6 +464,20 @@
         "args": {
           "entity_id": "light.office_monitor_lightstrip"
         }
+      },
+      "ORANGE_1": {
+        "module": "homeassistant",
+        "function": "turnOnMediaPlayer",
+        "args": {
+          "entity_id": "media_player.office_office_frame_tv"
+        }
+      },
+      "ORANGE_2": {
+        "module": "homeassistant",
+        "function": "turnOffMediaPlayer",
+        "args": {
+          "entity_id": "media_player.office_office_frame_tv"
+        }
       }
     }
   }
