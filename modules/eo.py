@@ -9,7 +9,10 @@ class ElectricObjects:
         self.config = config
         self.session = session
 
-    async def resume(self, **kwargs):
+    async def next(self, **kwargs):
         frame = kwargs["frame"]
-        url = f"http://{frame}.smittn.com:12345/resume"
-        await self.session.get(url)
+        url = f"http://{frame}.smittn.com:12345/api/v1/navigate"
+        payload = {
+            "action": "next"
+        }
+        await self.session.post(url, json=payload)

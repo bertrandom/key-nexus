@@ -266,14 +266,14 @@
     "piexistenz": {
       "KEY_1": {
         "module": "eo",
-        "function": "resume",
+        "function": "next",
         "args": {
           "frame": "eoleft"
         }
       },
       "KEY_2": {
         "module": "eo",
-        "function": "resume",
+        "function": "next",
         "args": {
           "frame": "eoright"
         }
