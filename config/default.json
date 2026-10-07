@@ -478,6 +478,14 @@
         "args": {
           "entity_id": "media_player.office_office_frame_tv"
         }
+      },
+      "ORANGE_3": {
+        "module": "homeassistant",
+        "function": "fireEvent",
+        "args": {
+          "event_type": "key_pressed",
+          "append_keypress": true
+        }
       }
     }
   }

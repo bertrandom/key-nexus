@@ -105,6 +105,9 @@ async def press_key(keypress: Keypress):
     args = None
     if "args" in selection:
         args = selection["args"]
+        if args.get("append_keypress"):
+            args["client_id"] = keypress.client_id
+            args["key"] = keypress.key
 
     if hasattr(module, function) and callable(func := getattr(module, function)):
         logger.info(f"{selection['module']}.{function}({args})")

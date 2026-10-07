@@ -224,3 +224,21 @@ class HomeAssistant:
         }, headers={
             "Authorization": f"Bearer {self.api_key}"
         })
+
+    async def fireEvent(self, **kwargs):
+        event_type = kwargs["event_type"]
+        append_keypress = kwargs.get("append_keypress", False)
+
+        if append_keypress:
+            client_id = kwargs["client_id"]
+            key = kwargs["key"]
+
+        url = f"http://{self.host}:{self.port}/api/events/{event_type}"
+        payload = {}
+        if append_keypress:
+            payload["client_id"] = client_id
+            payload["key"] = key
+
+        await self.session.post(url, json=payload, headers={
+            "Authorization": f"Bearer {self.api_key}"
+        })
