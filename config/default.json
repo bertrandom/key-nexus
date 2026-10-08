@@ -422,24 +422,24 @@
         "module": "generic_mqtt",
         "function": "publish",
         "args": {
-          "topic": "iot/nixie",
-          "payload": "{\"type\":\"decrement\"}"
+          "topic": "iot/nixie/fat",
+          "payload": "{\"action\":\"decrement\"}"
         }
       },
       "KEY_KP2": {
         "module": "generic_mqtt",
         "function": "publish",
         "args": {
-          "topic": "iot/nixie",
-          "payload": "{\"type\":\"set\", \"number\": 5}"
+          "topic": "iot/nixie/fat",
+          "payload": "{\"action\":\"set\", \"number\": 5}"
         }
       },
       "KEY_KP3": {
         "module": "generic_mqtt",
         "function": "publish",
         "args": {
-          "topic": "iot/nixie",
-          "payload": "{\"type\":\"increment\"}"
+          "topic": "iot/nixie/fat",
+          "payload": "{\"action\":\"increment\"}"
         }
       },
       "KEY_KP0": {
