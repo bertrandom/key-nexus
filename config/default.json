@@ -467,9 +467,10 @@
       },
       "ORANGE_1": {
         "module": "homeassistant",
-        "function": "turnOnMediaPlayer",
+        "function": "fireEvent",
         "args": {
-          "entity_id": "media_player.office_office_frame_tv"
+          "event_type": "key_pressed",
+          "append_keypress": true
         }
       },
       "ORANGE_2": {
