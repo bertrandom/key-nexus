@@ -129,25 +129,10 @@ class HomeAssistant:
 
         entity_state = await response.json()
 
-        brightness_pct = 1
-
-        if entity_state["state"] == "on" and "attributes" in entity_state and "brightness" in entity_state["attributes"]:
-            current_brightness = entity_state["attributes"]["brightness"]
-            if current_brightness is not None:
-                if current_brightness <= 3:
-                    brightness_pct = 50
-                else:
-                    brightness_pct = 1
+        if entity_state["state"] == "on":
+            await self.turnOffLight(entity_id=entity_id)
         else:
-            brightness_pct = 50
-
-        url = f"http://{self.host}:{self.port}/api/services/light/turn_on"
-        await self.session.post(url, json={
-            "entity_id": entity_id,
-            "brightness_pct": brightness_pct
-        }, headers={
-            "Authorization": f"Bearer {self.api_key}"
-        })
+            await self.turnOnLight(entity_id=entity_id, brightness_pct=50)
 
     async def cycleSconceBrightness(self, **kwargs):
         entity_id = kwargs["entity_id"]
