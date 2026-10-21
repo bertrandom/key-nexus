@@ -1,23 +1,20 @@
-[tool.poetry]
+[project]
 name = "key-nexus"
 version = "0.1.0"
 description = ""
-authors = ["Bertrand Fan <bertrand@fan.net>"]
+authors = [{ name = "Bertrand Fan", email = "bertrand@fan.net" }]
+requires-python = ">=3.12"
 readme = "README.md"
-packages = [{include = "key_nexus"}]
+dependencies = [
+    "fastapi>=0.108.0,<0.109",
+    "uvicorn[standard]>=0.25.0,<0.26",
+    "gunicorn>=21.2.0,<22",
+    "appcfg>=1.1.1,<2",
+    "aiohttp>=3.9.1,<4",
+    "sqlite-utils>=3.36,<4",
+    "openai>=1.7.2,<2",
+    "paho-mqtt>=2.1.0,<3",
+]
 
-[tool.poetry.dependencies]
-python = "^3.11"
-fastapi = "^0.108.0"
-uvicorn = {extras = ["standard"], version = "^0.25.0"}
-gunicorn = "^21.2.0"
-appcfg = "^1.1.1"
-aiohttp = "^3.9.1"
-sqlite-utils = "^3.36"
-openai = "^1.7.2"
-paho-mqtt = "^2.1.0"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.uv]
+package = false
